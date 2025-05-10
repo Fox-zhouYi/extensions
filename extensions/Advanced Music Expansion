@@ -1,0 +1,107 @@
+class MusicExtension {
+    constructor() {
+        this.audio = new Audio();
+        this.lyrics = [];
+        this.currentLyricIndex = 0;
+        this.ui = this.createUI();
+    }
+
+    getInfo() {
+        return {
+            id: 'musicPlayer',
+            name: '音乐播放器',
+            blocks: [
+                {
+                    opcode: 'loadMusic',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: '加载音乐 URL: [URL]',
+                    arguments: {
+                        URL: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'https://example.com/music.mp3'
+                        }
+                    }
+                },
+                {
+                    opcode: 'setCover',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: '设置封面 URL: [URL]',
+                    arguments: {
+                        URL: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'https://example.com/cover.jpg'
+                        }
+                    }
+                },
+                {
+                    opcode: 'setLyrics',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: '设置歌词 [LYRICS]',
+                    arguments: {
+                        LYRICS: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: '[00:00] 歌词示例'
+                        }
+                    }
+                },
+                {
+                    opcode: 'togglePlay',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: '播放/暂停'
+                }
+            ]
+        };
+    }
+
+    createUI() {
+        const container = document.createElement('div');
+        container.style = /* CSS样式 */;
+        
+        // 封面图片
+        const coverImg = document.createElement('img');
+        // 进度条
+        const progressBar = document.createElement('div');
+        // 歌词显示
+        const lyricsDiv = document.createElement('div');
+        // 控制按钮
+        const playBtn = document.createElement('button');
+        
+        // 添加到容器
+        return container;
+    }
+
+    async loadMusic(args) {
+        try {
+            this.audio.src = args.URL;
+            await this.audio.play();
+        } catch (error) {
+            console.error('加载音乐失败:', error);
+        }
+    }
+
+    setCover(args) {
+        const img = this.ui.querySelector('.cover');
+        img.src = args.URL;
+    }
+
+    setLyrics(args) {
+        // 解析歌词文本
+        this.lyrics = this.parseLyrics(args.LYRICS);
+    }
+
+    parseLyrics(text) {
+        // 实现歌词解析逻辑
+        return parsedLyrics;
+    }
+
+    togglePlay() {
+        this.audio.paused ? this.audio.play() : this.audio.pause();
+    }
+
+    updateProgress() {
+        // 更新进度条和歌词显示
+        requestAnimationFrame(() => this.updateProgress());
+    }
+}
+
+Scratch.extensions.register(new MusicExtension());
